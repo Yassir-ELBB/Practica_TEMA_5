@@ -1,0 +1,28 @@
+package Characters;
+
+public class Guerrero extends Personaje{
+    private boolean furia;
+
+    public Guerrero(boolean furia) {
+        super();
+        this.furia = furia;
+    }
+
+    public Guerrero(String pv, int atq, int arm, int res, int vel, boolean furia) {
+        super(pv, atq, arm, res, vel);
+        this.furia = furia;
+    }
+
+    public boolean getFuria() {
+        return furia;
+    }
+
+    public void modificaFuria(int Modificacion){
+        if(furia){
+            Modificacion = getAtq() * 2;
+        }
+
+    }
+
+
+}
