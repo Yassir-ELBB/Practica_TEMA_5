@@ -1,5 +1,7 @@
 package Characters;
 
+import java.util.Random;
+
 public class Guerrero extends Personaje{
     private boolean furia;
 
@@ -8,21 +10,54 @@ public class Guerrero extends Personaje{
         this.furia = furia;
     }
 
-    public Guerrero(String pv, int atq, int arm, int res, int vel, boolean furia) {
+    public Guerrero(int pv, int atq, int arm, int res, int vel, boolean furia) {
         super(pv, atq, arm, res, vel);
         this.furia = furia;
     }
+
+
 
     public boolean getFuria() {
         return furia;
     }
 
-    public void modificaFuria(int Modificacion){
-        if(furia){
-            Modificacion = getAtq() * 2;
+    public void subirnivel(){
+        Random r = new Random();
+        setnivel(getNivel() + 1);
+
+        if (r.nextDouble() >= 0.75) {
+            setpv(getpv() + 1);
         }
+
+        if (r.nextDouble() >= 0.80) {
+            setatq(getAtq() * 2);
+        }
+
+        if (r.nextDouble() >= 0.75) {
+            setArm(getdef() + 1);
+        }
+
+        if (r.nextDouble() >= 0.20) {
+            setRes(getRes() + 1);
+        }
+
+        if (r.nextDouble() >= 0.50) {
+            setVel(getVel() + 1);
+        }
+    }
+
+    public void modificaFuria(boolean furia){
+        if(furia){
+           setatq(getAtq() * 2);
+           setArm(getdef() * 2);
+        }
+    }
+
+    public String toString(){
+       return "Tu personaje llamado: "+getNombre()+" con una cantidad de pundos de vida de: "+getpv()+" , Puntos de defensa: "+ getdef() +" , Puntos de ataque: "+getAtq()+" y puntos de nivel: "+getNivel();
+
 
     }
 
-
 }
+
