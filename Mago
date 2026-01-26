@@ -1,0 +1,81 @@
+package Characters;
+
+import java.util.Random;
+
+public class Mago extends Personaje{
+    private int mag;
+
+    public Mago(){
+        super();
+        mag = 10;
+    }
+
+    public Mago(int pv, int atq, int arm, int res, int vel, int mag) {
+        super(pv, atq, arm, res, vel);
+        this.mag = mag;
+    }
+
+    public int getMag() {
+        return mag;
+    }
+
+    public void subirnivel(){
+        Random r = new Random();
+        setnivel(getNivel() + 1);
+
+        if(r.nextDouble() >= 0.85){
+            mag++;
+        }
+
+        if (r.nextDouble() >= 0.35) {
+            setpv(getpv() + 1);
+        }
+
+        if (r.nextDouble() >= 0.15) {
+            setatq(getAtq() * 2);
+        }
+
+        if (r.nextDouble() >= 0.35) {
+            setArm(getdef() + 1);
+        }
+
+        if (r.nextDouble() >= 0.80) {
+            setRes(getRes() + 1);
+        }
+
+        if (r.nextDouble() >= 0.65) {
+            setVel(getVel() + 1);
+        }
+    }
+
+    public void lanzarConjuro(int Eleccion){
+        //No esta implementado el metodo combate por lo tanto no tengo donde implementar las mejoras de atributos y los daños
+        //por lo tanto se los añado a los atq, arm, res,
+        switch (Eleccion){
+            case 1:
+                System.out.println("lanza una bola de fuego incandescente que causa un\n" +
+                        "70% de sus puntos de magia como daño a un enemigo.");
+                setatq(getMag() * 7/10);
+                break;
+
+            case 2:
+                System.out.println("Escudo arcano (2): se protege a sí mismo o a un aliado, aumentando su\n" +
+                        "estadística de armadura y resistencia mágica el 50% de los puntos de\n" +
+                        "magia del mago.");
+                setArm(getMag() * 5/10);
+                setRes(getMag() * 5/10);
+                break;
+            case 3:
+                System.out.println("un fuerte viento causa un 30% de sus puntos de magia como\n" +
+                        "daño a todos los enemigos presentes.");
+                setatq(getMag() * 3/10);
+                break;
+            case 4:
+                System.out.println("agiliza las reacciones propias o de un aliado,\n" +
+                        "aumentando su velocidad un 100% de los puntos de magia del mago.");
+                setVel(getMag());
+        }
+
+        //To String
+    }
+}
