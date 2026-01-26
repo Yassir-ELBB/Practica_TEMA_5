@@ -21,7 +21,7 @@ public class Personaje {
         vel = 0;
     }
 
-    public Personaje (String pv, int atq, int arm, int res, int vel){
+    public Personaje (int pv, int atq, int arm, int res, int vel){
         this.pv = 100;
         this.atq = 10;
         this.arm = 10;
@@ -30,7 +30,7 @@ public class Personaje {
 
     }
 
-    public Personaje (String nombre){
+    public Personaje (String nombre, int pv, int atq, int arm, int nivel){
         setNombre(nombre);
         setnivel(1);
         Random r = new Random();
@@ -146,10 +146,10 @@ public class Personaje {
 
 
     public void inspirar(int cantidad, String tipo) {
-        if (tipo == "atq") {
+        if (tipo.equals("atq")) {
             atq += cantidad;
             System.out.println("Has aumentado: "+tipo+" En una cantidad de: "+cantidad+" puntos, ahora tienes: "+atq+" Puntos de defensa");
-        } else if (tipo == "def") {
+        } else if (tipo.equals("def")) {
             arm += cantidad;
             System.out.println("Has aumentado: "+tipo+" En una cantidad de: "+cantidad+" puntos, ahora tienes: "+ arm +" Puntos de defensa");
         } else {
@@ -159,42 +159,26 @@ public class Personaje {
 
     public void subirnivel(){
         Random r = new Random();
-        boolean sube_nivel;
-        double aleatorio_nivel;
-        double aleatorio_pv;
-        double aleatorio_atq;
-        double aleatorio_arm;
-        double aleatorio_res;
-        double aleatorio_vel;
-        aleatorio_nivel = r.nextDouble();
-        if(aleatorio_nivel < 0.5){
-            sube_nivel = true;
-            nivel ++;
-        }else sube_nivel = false;
+        nivel++;
 
-        if(sube_nivel){
+        if (r.nextDouble() >= 0.50) {
+            pv++;
+        }
 
-            aleatorio_pv = r.nextDouble();
-            if(aleatorio_pv < 0.50){
-                pv++;
-            }
-            aleatorio_atq = r.nextDouble();
-            if(aleatorio_atq < 0.50){
-                atq++;
-            }
-            aleatorio_arm = r.nextDouble();
-            if(aleatorio_arm < 0.50){
-                arm++;
-            }
-            aleatorio_res = r.nextDouble();
-            if(aleatorio_res < 0.50){
-                res++;
-            }
-            aleatorio_vel = r.nextDouble();
-            if(aleatorio_vel < 0.50){
-                vel++;
-            }
+        if (r.nextDouble() >= 0.50) {
+            atq++;
+        }
 
+        if (r.nextDouble() >= 0.50) {
+            arm++;
+        }
+
+        if (r.nextDouble() >= 0.50) {
+            res++;
+        }
+
+        if (r.nextDouble() >= 0.50) {
+            vel++;
         }
 
     }
@@ -277,3 +261,4 @@ public class Personaje {
     }
 
 }
+
