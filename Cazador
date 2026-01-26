@@ -1,0 +1,26 @@
+package Characters;
+
+import java.util.Random;
+
+public class Cazador extends Personaje{
+
+    public Cazador() {
+        super();
+    }
+
+    public Cazador(String nombre, int pv, int atq, int arm, int nivel) {
+        super(nombre, pv, atq, arm, nivel);
+    }
+
+    @Override
+    public void subirnivel() {
+        Random r = new Random();
+        setnivel(getNivel() + 1);
+
+        if (r.nextDouble() >= 0.70) {
+            setVel(getVel() * 2);
+        }
+    }
+
+
+}
