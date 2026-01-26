@@ -1,5 +1,6 @@
 package Characters;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class Cazador extends Personaje{
@@ -19,6 +20,39 @@ public class Cazador extends Personaje{
 
         if (r.nextDouble() >= 0.70) {
             setVel(getVel() * 2);
+        }
+    }
+
+
+    private class Companero_Animal extends Personaje{
+        private String raza;
+
+        public Companero_Animal(String raza) {
+            super();
+            this.raza = raza;
+        }
+
+        public Companero_Animal(String nombre, int pv, int atq, int arm, int nivel, String raza) {
+            super(nombre, pv, atq, arm, nivel);
+            this.raza = raza;
+        }
+
+        public void Tipo_raza(String Raza){
+            switch (raza){ // Añadir las mejoras respectivas a las variaciones que produce la mascota
+                case "Canino":
+
+                    break;
+                case "Felino":
+
+                    break;
+                case "Rapaz":
+
+                    break;
+
+                default:
+
+            }
+
         }
     }
 
