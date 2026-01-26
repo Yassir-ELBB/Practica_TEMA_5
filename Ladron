@@ -1,0 +1,23 @@
+package Characters;
+
+public class Ladron extends Personaje{
+
+    private boolean robar;
+
+    public Ladron() {
+        super();
+    }
+
+    public Ladron(String nombre, int pv, int atq, int arm, int nivel, boolean robar) {
+        super(nombre, pv, atq, arm, nivel);
+    }
+
+    public void Robar(){
+        // Aqui va le metodo que hace que el ladron golpee mediante su vel en lugar de golpear con se ataque
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); // Mas el de ladron una vez que este ya este completo 
+    }
+}
