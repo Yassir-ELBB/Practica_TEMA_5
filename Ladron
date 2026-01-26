@@ -1,5 +1,7 @@
 package Characters;
 
+import java.util.Random;
+
 public class Ladron extends Personaje{
 
     private boolean robar;
@@ -12,12 +14,38 @@ public class Ladron extends Personaje{
         super(nombre, pv, atq, arm, nivel);
     }
 
+    @Override
+    public void subirnivel() {
+        Random r = new Random();
+        setnivel(getNivel() + 1);
+
+        if (r.nextDouble() >= 0.40) {
+            setpv(getpv() + 1);
+        }
+
+        if (r.nextDouble() >= 0.60) {
+            setatq(getAtq() + 1);
+        }
+
+        if (r.nextDouble() >= 0.40) {
+            setArm(getdef() + 1);
+        }
+
+        if (r.nextDouble() >= 0.40) {
+            setRes(getRes() + 1);
+        }
+
+        if (r.nextDouble() >= 0.85) {
+            setVel(getVel() * 2);
+        }
+    }
+
     public void Robar(){
         // Aqui va le metodo que hace que el ladron golpee mediante su vel en lugar de golpear con se ataque
     }
 
     @Override
     public String toString() {
-        return super.toString(); // Mas el de ladron una vez que este ya este completo 
+        return super.toString(); // Mas el de ladron una vez que este ya este completo
     }
 }
