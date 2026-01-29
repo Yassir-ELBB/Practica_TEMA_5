@@ -1,1 +1,20 @@
+package Characters;
+
+import java.util.Random;
+
+public class Paladín extends Creyente {
+
+    public Paladín(){
+        super();
+    }
+
+    public Paladín(int pv, int atq, int arm, int res, int vel, int fe) {
+        super(pv, atq, arm, res, vel, fe);
+    }
+
+    @Override
+    public void subirnivel() {
+        
+    }
+}
 
