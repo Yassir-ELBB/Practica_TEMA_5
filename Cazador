@@ -1,5 +1,5 @@
 package Characters;
-
+// NO NO CHECK
 import java.util.Locale;
 import java.util.Random;
 
@@ -18,8 +18,8 @@ public class Cazador extends Personaje{
         Random r = new Random();
         setnivel(getNivel() + 1);
 
-        if (r.nextDouble() >= 0.70) {
-            setVel(getVel() * 2);
+        if (r.nextDouble() <= 0.70) {
+            setVel(getVel() + 1);
         }
     }
 
