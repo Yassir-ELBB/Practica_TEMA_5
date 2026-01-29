@@ -161,23 +161,23 @@ public class Personaje {
         Random r = new Random();
         nivel++;
 
-        if (r.nextDouble() >= 0.50) {
+        if (r.nextDouble() <= 0.50) {
             pv++;
         }
 
-        if (r.nextDouble() >= 0.50) {
+        if (r.nextDouble() <= 0.50) {
             atq++;
         }
 
-        if (r.nextDouble() >= 0.50) {
+        if (r.nextDouble() <= 0.50) {
             arm++;
         }
 
-        if (r.nextDouble() >= 0.50) {
+        if (r.nextDouble() <= 0.50) {
             res++;
         }
 
-        if (r.nextDouble() >= 0.50) {
+        if (r.nextDouble() <= 0.50) {
             vel++;
         }
 
@@ -261,4 +261,3 @@ public class Personaje {
     }
 
 }
-
