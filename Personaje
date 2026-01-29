@@ -197,7 +197,7 @@ public class Personaje {
         int Quita = t.getPerjuicio();
 
 
-        if (AC == true){
+        if (AC){
             switch (Tipo){
                 case "Pinchos":
                     System.out.println("Estacas afiladas salen de la superficie cercana y atraviesan a: "+nombre+" por un prejuicio de: "+Quita+" puntos de daño");
@@ -219,15 +219,14 @@ public class Personaje {
 
     }
 
-    //Practica 4, Ejercicio 2
-    //Clone:
+
+
 
     public Personaje clon(){
         Personaje clone = new Personaje(this.nombre,this.pv, this.atq, this.arm,this.nivel);
         return clone;
     }
 
-    //Equals:
 
     public boolean equals(Personaje otro) {
         boolean comparacion = true;
@@ -254,7 +253,7 @@ public class Personaje {
         return comparacion;
     }
 
-    //To String:
+
     public String toString(){
         String DevolucionDescribcion = "Tu personaje llamado: "+nombre+" con una cantidad de pundos de vida de: "+pv+" , Puntos de defensa: "+ arm +" , Puntos de ataque: "+atq+" y puntos de nivel: "+nivel;
         return DevolucionDescribcion;
