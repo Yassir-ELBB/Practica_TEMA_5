@@ -1,5 +1,5 @@
 package Characters;
-
+//CHECK
 import java.util.Random;
 
 public class Ladron extends Personaje{
@@ -8,10 +8,16 @@ public class Ladron extends Personaje{
 
     public Ladron() {
         super();
+        this.robar = false;
     }
 
     public Ladron(String nombre, int pv, int atq, int arm, int nivel, boolean robar) {
         super(nombre, pv, atq, arm, nivel);
+        this.robar = robar;
+    }
+
+    public boolean isRobar() {
+        return robar;
     }
 
     @Override
@@ -19,33 +25,33 @@ public class Ladron extends Personaje{
         Random r = new Random();
         setnivel(getNivel() + 1);
 
-        if (r.nextDouble() >= 0.40) {
+        if (r.nextDouble() <= 0.40) {
             setpv(getpv() + 1);
         }
 
-        if (r.nextDouble() >= 0.60) {
+        if (r.nextDouble() <= 0.60) {
             setatq(getAtq() + 1);
         }
 
-        if (r.nextDouble() >= 0.40) {
+        if (r.nextDouble() <= 0.40) {
             setArm(getdef() + 1);
         }
 
-        if (r.nextDouble() >= 0.40) {
+        if (r.nextDouble() <= 0.40) {
             setRes(getRes() + 1);
         }
 
-        if (r.nextDouble() >= 0.85) {
+        if (r.nextDouble() <= 0.85) {
             setVel(getVel() * 2);
         }
     }
 
     public void Robar(){
-        // Aqui va le metodo que hace que el ladron golpee mediante su vel en lugar de golpear con se ataque
+       setatq(getVel());
     }
 
     @Override
     public String toString() {
-        return super.toString(); // Mas el de ladron una vez que este ya este completo
+        return super.toString() + "ladron robar: "+robar;
     }
 }
