@@ -1,5 +1,5 @@
 package Characters;
-
+//CHECK
 import java.util.Random;
 
 public class Mago extends Personaje{
@@ -19,33 +19,39 @@ public class Mago extends Personaje{
         return mag;
     }
 
-    public void subirnivel(){
+    @Override
+    public void subirnivel() {
         Random r = new Random();
         setnivel(getNivel() + 1);
 
-        if(r.nextDouble() >= 0.85){
+        if(r.nextDouble() <= 0.85){
             mag++;
         }
 
-        if (r.nextDouble() >= 0.35) {
+        if (r.nextDouble() <= 0.35) {
             setpv(getpv() + 1);
         }
 
-        if (r.nextDouble() >= 0.15) {
-            setatq(getAtq() * 2);
+        if (r.nextDouble() <= 0.15) {
+            setatq(getAtq() + 1);
         }
 
-        if (r.nextDouble() >= 0.35) {
+        if (r.nextDouble() <= 0.35) {
             setArm(getdef() + 1);
         }
 
-        if (r.nextDouble() >= 0.80) {
+        if (r.nextDouble() <= 0.80) {
             setRes(getRes() + 1);
         }
 
-        if (r.nextDouble() >= 0.65) {
+        if (r.nextDouble() <= 0.65) {
             setVel(getVel() + 1);
         }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Magia de Mago: "+mag;
     }
 
     public void lanzarConjuro(int Eleccion){
@@ -77,5 +83,8 @@ public class Mago extends Personaje{
         }
 
         //To String
+
+
+
     }
 }
