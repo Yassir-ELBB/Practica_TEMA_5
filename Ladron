@@ -23,7 +23,9 @@ public class Ladron extends Personaje{
     @Override
     public void subirnivel() {
         Random r = new Random();
-        setnivel(getNivel() + 1);
+        if (r.nextDouble() <= 0.85) {
+            setnivel(getNivel() + 1);
+        }
 
         if (r.nextDouble() <= 0.40) {
             setpv(getpv() + 1);
@@ -47,7 +49,7 @@ public class Ladron extends Personaje{
     }
 
     public void Robar(){
-       setatq(getVel());
+        setatq(getVel());
     }
 
     @Override
