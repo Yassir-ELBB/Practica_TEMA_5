@@ -1,0 +1,22 @@
+package Characters;
+
+public class Creyente extends Personaje{
+    private int fe;
+
+    public Creyente(){
+        super();
+        this.fe = 0;
+    }
+
+    public Creyente(int pv, int atq, int arm, int res, int vel, int fe) {
+        super(pv, atq, arm, res, vel);
+        this.fe = fe;
+    }
+
+    public int getFe() {
+        return fe;
+    }
+
+    
+
+}
