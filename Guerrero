@@ -1,5 +1,5 @@
 package Characters;
-// CHECK
+// CHECK-29/01/26
 import java.util.Random;
 
 public class Guerrero extends Personaje{
@@ -22,7 +22,8 @@ public class Guerrero extends Personaje{
         return furia;
     }
 
-    public void subirnivel(){
+    @Override
+    public void subirnivel() {
         Random r = new Random();
         setnivel(getNivel() + 1);
 
@@ -54,11 +55,11 @@ public class Guerrero extends Personaje{
         }
     }
 
-    public String toString(){
-        return "Tu personaje llamado: "+getNombre()+" con una cantidad de pundos de vida de: "+getpv()+" , Puntos de defensa: "+ getdef() +" , Puntos de ataque: "+getAtq()+" y puntos de nivel: "+getNivel();
-
-
+    @Override
+    public String toString() {
+        return super.toString() + "La furia del guerrero esta: "+furia;
     }
+}
 
 }
 
