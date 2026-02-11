@@ -1,3 +1,12 @@
+// Modificaciones a hacer: hacer los metodos de atacar, defender y realizar turno 
+//La furia del guerrero hacerlo con true/False el metodo robar en vez de implementar el daño en el directamente para que este se implemente en la clase combate 
+//Cambiar el lanzar conjuro para hacer daño para que haga daño de verdad 
+//Cazador subir nivel añadir los que faltan y el la mascota implementarla para que haga mejoras en la vida del cazador en vez de la de la mascota y quitar el static a la clase animal 
+// Del creyente no hay que tocar nada 
+//Paladín y clérigo lo mismo que le mago hay que modificar sus poderes para que ejerzan un daño real en los atributos en ataque/defensa haciendo que devuelvan un rerturn con el daño ya hecho y planteado public int ...
+//En el mountsro hay que en vez del scanner hay que eliminarlo para poder seleccionarlo en el main, haciendo las modificaciones implementando el subir nivel en cada tipo de mounstro de manera que halla un subirNivel para cada tipo
+//Hay algunos de los atributos donde hay que dejarlos de la manera en la que los he implementados ya que son propios del personaje, que no se van a usar en la clase combate
+
 package Characters;
 import GameMap.trampa;
 import java.util.Random;
