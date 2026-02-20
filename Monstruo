@@ -1,0 +1,110 @@
+package Characters;
+
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ * Clase Mounstro que hereda de Personaje.
+ * Representa un enemigo o criatura del juego con diferentes razas que afectan sus atributos.
+ * Permite definir la raza del mounstro y aplicar mejoras a sus atributos según la elección del usuario.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public class Mounstro extends Personaje {
+    private String raza; /** atributo que almacena la raza del mounstro */
+
+    /**
+     * Constructor que inicializa un mounstro con una raza específica.
+     * Todos los demás atributos se inicializan con los valores por defecto de la superclase.
+     *
+     * @param raza raza del mounstro
+     */
+    public Mounstro(String raza) {
+        super();
+        this.raza = raza;
+    }
+
+    /**
+     * Constructor por parámetros que inicializa todos los atributos del mounstro.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res puntos de resistencia mágica
+     * @param vel velocidad
+     * @param raza raza del mounstro
+     */
+    public Mounstro(int pv, int atq, int arm, int res, int vel, String raza) {
+        super(pv, atq, arm, res, vel);
+        this.raza = raza;
+    }
+
+    /**
+     * Getter que devuelve la raza del mounstro.
+     *
+     * @return raza
+     */
+    public String getRaza() {
+        return raza;
+    }
+
+    /**
+     * Metodo moustroRaza que permite al usuario elegir la raza del mounstro
+     * y aplica los efectos correspondientes sobre los atributos del personaje
+     * de forma aleatoria según la raza seleccionada.
+     */
+    public void moustroRaza(String eleccion) {
+
+        switch (eleccion) {
+
+            case "Bestia":
+                Random r = new Random();
+                if (r.nextDouble() <= 0.80) {
+                    setatq(getAtq() * 2);
+                }
+                if (r.nextDouble() <= 0.80) {
+                    setVel(getVel() * 2);
+                }
+                if (r.nextDouble() <= 0.15) {
+                    setArm(getdef() + 1);
+                }
+                if (r.nextDouble() <= 0.15) {
+                    setRes(getRes() + 1);
+                }
+                break;
+
+            case "No-muerto":
+                Random p = new Random();
+                if (p.nextDouble() <= 0.70) {
+                    setRes(getRes() * 4);
+                }
+                if (p.nextDouble() <= 0.30) {
+                    setpv(getpv() + 1);
+                }
+                if (p.nextDouble() <= 0.30) {
+                    setArm(getdef() + 1);
+                }
+                if (p.nextDouble() <= 0.05) {
+                    setVel(getVel() + 1);
+                }
+                break;
+            case "Gigante":
+                // Implementación pendiente
+                break;
+            default:
+                System.out.println("No ha elejido un tipo de milagro valido");
+        }
+    }
+
+    /**
+     * Metodo toString que devuelve una descripción completa del mounstro,
+     * incluyendo su raza.
+     *
+     * @return descripción del mounstro
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " El Mpunstro es de la raza: " + this.raza;
+    }
+}
