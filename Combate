@@ -1,0 +1,115 @@
+package Combat;
+import Characters.Personaje;
+/**
+ * Clase Combate que gestiona los enfrentamientos entre dos personajes.
+ * Se encarga de determinar quién actúa primero según la velocidad,
+ * manejar los turnos, ataques dobles y actualizar la vida de cada personaje.
+ * También anuncia al final quién es el ganador del combate.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public class Combate {
+    /**
+     * Metodo combatir que realiza el enfrentamiento entre dos personajes.
+     * El primer parámetro p1 se considera el personaje jugable.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     */
+    public static void combatir(Personaje p1, Personaje p2){
+
+        System.out.println("Combate entre:" + p1.getNombre() + " y " + p2.getNombre());
+        Personaje primero;
+        Personaje segundo;
+
+        if(personajemasRapido(p1, p2)){
+            primero = p1;
+            segundo = p2;
+        }else{
+            primero = p2;
+            segundo = p1;
+        }
+
+        while(!alguienMuerto(primero, segundo)){
+
+
+            if(dobleAtaque(primero, segundo) && !alguienMuerto(primero, segundo)){
+                segundo.defender(primero.realizarTurno());
+                mostrarVida(primero, segundo);
+            }
+
+            if(!alguienMuerto(primero, segundo)){
+                segundo.defender(primero.realizarTurno());
+                mostrarVida(primero, segundo);
+            }
+
+            if(!alguienMuerto(primero, segundo)){
+                primero.defender(segundo.realizarTurno());
+                mostrarVida(primero, segundo);
+            }
+        }
+
+        anuncioGanador(primero, segundo);
+    }
+
+    /**
+     * Muestra por consola la vida actual de ambos personajes.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     */
+    private static void mostrarVida(Personaje p1, Personaje p2){
+        System.out.println(p1.getNombre() + ": " + p1.getpv() + " PV");
+        System.out.println(p2.getNombre() + ": " + p2.getpv() + " PV");
+    }
+
+    /**
+     * Comprueba cual personaje es más rapido.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     * @return true si p1 es igual o más rapido que p2, false en caso contrario
+     */
+    private static boolean personajemasRapido(Personaje p1, Personaje p2){
+        return p1.getVel() >= p2.getVel();
+    }
+
+    /**
+     * Determina si el primer personaje puede realizar un ataque doble.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     * @return true si p1 tiene al menos el doble de velocidad que p2
+     */
+    private static boolean dobleAtaque(Personaje p1, Personaje p2){
+        return p1.getVel() >= (p2.getVel() * 2);
+    }
+    /**
+     * Comprueba si alguno de los personajes ha muerto.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     * @return true si alguno tiene PV <= 0
+     */
+    private static boolean alguienMuerto(Personaje p1, Personaje p2){
+        return p1.getpv() <= 0 || p2.getpv() <= 0;
+    }
+
+    /**
+     * Anuncia el ganador del combate por consola.
+     *
+     * @param p1 personaje 1
+     * @param p2 personaje 2
+     */
+    private static void anuncioGanador(Personaje p1, Personaje p2){
+
+        if(p1.getpv() <= 0){
+            System.out.println(p2.getNombre() + " gana.");
+        }
+
+        if(p2.getpv() <= 0){
+            System.out.println(p1.getNombre() + " gana.");
+        }
+    }
+}
