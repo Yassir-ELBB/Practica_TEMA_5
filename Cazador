@@ -1,60 +1,156 @@
 package Characters;
-// NO NO CHECK
+//CHECK - 31/01/26
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * Clase Cazador.
+ * Representa un personaje de tipo Cazador que hereda de la clase Personaje.
+ * Su progresión al subir nivel se centra en aumentar la velocidad.
+ * Además, tiene un compañero animal que comparte parcialmente sus atributos
+ * y puede mejorar estadísticas según su raza.
+ */
 public class Cazador extends Personaje{
 
+    /**
+     * Constructor por defecto.
+     * Inicializa un cazador con los valores por defecto de la superclase.
+     */
     public Cazador() {
         super();
     }
 
+    /**
+     * Constructor por parámetros.
+     * Crea un cazador indicando sus atributos principales.
+     *
+     * @param nombre nombre del cazador
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param nivel nivel del personaje
+     */
     public Cazador(String nombre, int pv, int atq, int arm, int nivel) {
         super(nombre, pv, atq, arm, nivel);
     }
 
+    /**
+     * Metodo subirnivel.
+     * Incrementa el nivel del cazador y puede aumentar su velocidad
+     * en función de una probabilidad aleatoria.
+     */
     @Override
     public void subirnivel() {
         Random r = new Random();
         setnivel(getNivel() + 1);
+
+        if (r.nextDouble() <= 0.50) {
+            setpv(getpv() + 1);
+        }
+
+        if (r.nextDouble() <= 0.50) {
+            setatq(getAtq() + 1);
+        }
+
+        if (r.nextDouble() <= 0.50) {
+            setArm(getdef() + 1);
+        }
+
+        if (r.nextDouble() <= 0.50) {
+            setRes(getRes() + 1);
+        }
 
         if (r.nextDouble() <= 0.70) {
             setVel(getVel() + 1);
         }
     }
 
-
+    /**
+     * Clase interna Companero_Animal.
+     * Representa el compañero del cazador, que puede tener distintas razas
+     * y mejorar parcialmente sus atributos según la raza.
+     */
     private class Companero_Animal extends Personaje{
+
+        /**
+         * Raza del compañero animal (Canino, Felino, Rapaz, etc.)
+         */
         private String raza;
 
+        /**
+         * Constructor por defecto.
+         * Inicializa un compañero con los valores por defecto de la superclase
+         * y establece la raza.
+         *
+         * @param raza raza del compañero
+         */
         public Companero_Animal(String raza) {
             super();
             this.raza = raza;
         }
 
+        /**
+         * Constructor por parámetros.
+         * Crea un compañero animal indicando sus atributos principales y su raza.
+         *
+         * @param nombre nombre del compañero
+         * @param pv puntos de vida
+         * @param atq puntos de ataque
+         * @param arm puntos de armadura
+         * @param nivel nivel del compañero
+         * @param raza raza del compañero
+         */
         public Companero_Animal(String nombre, int pv, int atq, int arm, int nivel, String raza) {
             super(nombre, pv, atq, arm, nivel);
             this.raza = raza;
         }
 
+        /**
+         * Metodo toString.
+         * Devuelve una descripción básica del compañero animal,
+         * incluyendo su raza.
+         *
+         * @return cadena con la descripción del compañero
+         */
+        @Override
+        public String toString() {
+            return "Companero_Animal de raza: " +
+                    raza;
+        }
+
+        /**
+         * Metodo Tipo_raza.
+         * Aplica mejoras a los atributos del compañero según su raza.
+         *
+         * @param Raza nombre de la raza (Canino, Felino, Rapaz)
+         */
         public void Tipo_raza(String Raza){
             switch (raza){ // Añadir las mejoras respectivas a las variaciones que produce la mascota
                 case "Canino":
-
+                    this.setatq((int) (Cazador.this.getAtq() * 0.20));
+                    this.setpv((int) (Cazador.this.getpv() * 0.20));
+                    this.setArm((int) (Cazador.this.getdef() * 0.20));
+                    this.setRes((int) (Cazador.this.getRes() * 0.20));
+                    this.setVel((int) (Cazador.this.getVel() * 0.20));
                     break;
                 case "Felino":
-
+                    this.setatq((int) (Cazador.this.getAtq() * 0.30));
+                    this.setpv((int) (Cazador.this.getpv() * 0.15));
+                    this.setArm((int) (Cazador.this.getdef() * 0.15));
+                    this.setRes((int) (Cazador.this.getRes() * 0.15));
+                    this.setVel((int) (Cazador.this.getVel() * 0.30));
                     break;
                 case "Rapaz":
-
+                    this.setatq((int) (Cazador.this.getAtq() * 0.15));
+                    this.setpv((int) (Cazador.this.getpv() * 0.05));
+                    this.setArm((int) (Cazador.this.getdef() * 0.05));
+                    this.setRes((int) (Cazador.this.getRes() * 0.25));
+                    this.setVel((int) (Cazador.this.getVel() * 0.35));
                     break;
 
                 default:
-
+                    System.out.println("Selecciona una raza valida");
             }
-
         }
     }
-
-
 }
