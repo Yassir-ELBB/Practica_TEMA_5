@@ -1,42 +1,121 @@
 package Characters;
 
+import Combat.Ataque;
+
 import java.util.Random;
+import java.util.Scanner;
 
-public class Paladín extends Creyente {
+/**
+ * Clase Paladín que hereda de Creyente.
+ * Representa un personaje que combina atributos físicos y de fe.
+ * Puede subir de nivel y ejecutar plegarias (milagros) que afectan sus atributos.
+ * Hereda de la clase abstracta Creyente.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public class Paladin extends Creyente {
 
-    public Paladín(){
+    /**
+     * Constructor por defecto.
+     * Inicializa todos los atributos del Paladín a los valores por defecto de la superclase.
+     */
+    public Paladin(){
         super();
     }
 
-    public Paladín(int pv, int atq, int arm, int res, int vel, int fe) {
+    /**
+     * Constructor por parámetros.
+     * Inicializa todos los atributos del Paladín, incluyendo puntos de fe.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res puntos de resistencia mágica
+     * @param vel velocidad
+     * @param fe puntos de fe
+     */
+    public Paladin(int pv, int atq, int arm, int res, int vel, int fe) {
         super(pv, atq, arm, res, vel, fe);
     }
 
+    /**
+     * Metodo subirnivel que incrementa el nivel del Paladín
+     * y puede aumentar distintos atributos de forma aleatoria.
+     */
     @Override
     public void subirnivel() {
         Random r = new Random();
         setnivel(getNivel() + 1);
 
-        if (r.nextDouble() <= 0.55) { // 2 55% --
-            setpv(getpv() + 1);
+        if (r.nextDouble() <= 0.55) {
+            setpv((getpv() + 1));
         }
 
-        if (r.nextDouble() <= 0.60) { // 3 60% --
+        if (r.nextDouble() <= 0.60) {
             setatq(getAtq() + 1);
         }
 
-        if (r.nextDouble() <= 0.70) { // 1 70% *2 --
-            setArm(getAtq() * 2);
+        if (r.nextDouble() <= 0.70) {
+            setArm(getdef() * 2);
         }
-        
-        if (r.nextDouble() <= 0.15) { // 4 15% --
+
+        if (r.nextDouble() <= 0.15) {
             setVel(getVel() + 1);
         }
-        
-        if (r.nextDouble() <= 0.30){ // 5 30% --
-            
+
+        if (r.nextDouble() <= 0.30){
+            setFe(getFe() + 1);
         }
 
     }
+
+    /**
+     * Metodo plegaria que permite al Paladín ejecutar un milagro.
+     * Dependiendo de la elección del usuario, modifica distintos atributos
+     * basándose en los puntos de fe del personaje.
+     */
+    @Override
+    public void plegaria() {
+        Ataque lanzar;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Por favor elija el milagro que desea hacer: ");
+        System.out.println("Imbuir arma (1): el paladín añade el 80% de sus puntos de fe a sus puntos\n" +
+                "de ataque.");
+        System.out.println("Baluarte de fe (2): el paladín aumenta su propia armadura un 30% de sus\n" +
+                "puntos de su fe.");
+        System.out.println("Fogonazo sagrado (3): el paladín ciega a su oponente, reduciendo su\n" +
+                "velocidad y resistencia mágica un 40% de sus puntos de fe.");
+        System.out.println("Eleccion: ");
+        int eleccion = s.nextInt();
+
+        switch (eleccion){
+            case 1:
+                lanzar = new Ataque((int) (getAtq() / 0.80),"Fis" );                //setatq((int) (getFe() * 0.80));
+                break;
+            case 2:
+                lanzar = new Ataque((int) (getdef() / 0.30),"Fis" );
+                break;
+            case 3:
+                lanzar = new Ataque((int) (getVel() * 0.40),"Fis" );
+                lanzar = new Ataque((int) (getRes() * 0.40),"Fis" );
+                break;
+            default:
+                System.out.println("No ha elejido un tipo de milagro valido");
+        }
+    }
+
+    /**
+     * Metodo toString que devuelve una descripción completa del Paladín,
+     * incluyendo sus puntos de fe.
+     *
+     * @return descripción del Paladín
+     */
+    @Override
+    public String toString() {
+        return super.toString()+" El paladín cunato con unos puntos de FE de: "+this.getFe();
+    }
+}
+
 }
 
