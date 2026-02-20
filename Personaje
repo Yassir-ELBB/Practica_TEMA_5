@@ -1,25 +1,31 @@
-// Modificaciones a hacer: hacer los metodos de atacar, defender y realizar turno 
-//La furia del guerrero hacerlo con true/False el metodo robar en vez de implementar el daño en el directamente para que este se implemente en la clase combate 
-//Cambiar el lanzar conjuro para hacer daño para que haga daño de verdad 
-//Cazador subir nivel añadir los que faltan y el la mascota implementarla para que haga mejoras en la vida del cazador en vez de la de la mascota y quitar el static a la clase animal 
-// Del creyente no hay que tocar nada 
-//Paladín y clérigo lo mismo que le mago hay que modificar sus poderes para que ejerzan un daño real en los atributos en ataque/defensa haciendo que devuelvan un rerturn con el daño ya hecho y planteado public int ...
-//En el mountsro hay que en vez del scanner hay que eliminarlo para poder seleccionarlo en el main, haciendo las modificaciones implementando el subir nivel en cada tipo de mounstro de manera que halla un subirNivel para cada tipo
-//Hay algunos de los atributos donde hay que dejarlos de la manera en la que los he implementados ya que son propios del personaje, que no se van a usar en la clase combate
-
 package Characters;
+import Combat.Ataque;
 import GameMap.trampa;
 import java.util.Random;
+import java.util.Scanner;
+//CHECK 20-02-26
+/**
+ * Clase Personaje donde se definen y se crean los atributos principales de un personaje.
+ * Se utilizan atributos como pv (Puntos de Vida), atq (Puntos de Ataque), arm (Armadura),
+ * nivel (nivel), resistencia mágica (res) y velocidad (vel) para la creación y comportamiento del personaje.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
 
 public class Personaje {
-    private int pv;
-    private int atq;
-    private int arm;
-    private int nivel;
-    private String nombre;
-    private int res;
-    private int vel;
+    private int pv;     /** atributo de tipo int que almacena los puntos de vida del personaje */
+    private int atq;    /** atributo de tipo int que almacena los puntos de ataque del personaje */
+    private int arm;    /** atributo de tipo int que almacena los puntos de armadura del personaje */
+    private int nivel;  /** atributo de tipo int que almacena el nivel del personaje */
+    private String nombre; /** atributo de tipo String que almacena el nombre del personaje */
+    private int res;    /** atributo de tipo int que almacena la resistencia magica del personaje */
+    private int vel;    /** atributo de tipo int que almacena la velocidad del personaje */
 
+    /**
+     * Constructor por defecto que inicializa todos los atributos
+     * del personaje a 0 o vacío.
+     */
     public Personaje(){
         pv = 0;
         atq = 0;
@@ -30,6 +36,15 @@ public class Personaje {
         vel = 0;
     }
 
+    /**
+     * Constructor por parametros que inicializa el personaje con valores fijos de base.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res puntos de resistencia magica
+     * @param vel puntos de velocidad
+     */
     public Personaje (int pv, int atq, int arm, int res, int vel){
         this.pv = 100;
         this.atq = 10;
@@ -39,6 +54,16 @@ public class Personaje {
 
     }
 
+    /**
+     * Constructor por parametros que crea un personaje
+     * y genera el resto de atributos de forma aleatoria.
+     *
+     * @param nombre nombre del personaje
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param nivel nivel del personaje
+     */
     public Personaje (String nombre, int pv, int atq, int arm, int nivel){
         setNombre(nombre);
         setnivel(1);
@@ -48,6 +73,13 @@ public class Personaje {
         setArm(r.nextInt(101));
     }
 
+    /**
+     * Constructor por parámetros que crea un personaje indicando su nombre
+     * y nivel, asignando los puntos de vida de forma aleatoria.
+     *
+     * @param nombre nombre del personaje
+     * @param nivel nivel del personaje
+     */
     public Personaje (String nombre, int nivel){
         setNombre(nombre);
         setnivel(nivel);
@@ -56,6 +88,12 @@ public class Personaje {
 
     }
 
+    /**
+     * Constructor de copia que crea un nuevo personaje
+     * copiando los valores de otro personaje existente.
+     *
+     * @param copia personaje a copiar
+     */
     public Personaje (Personaje copia){
         this.nombre = copia.nombre;
         this.pv = copia.pv;
@@ -64,33 +102,69 @@ public class Personaje {
         this.nivel = copia.nivel;
     }
 
-
+    /**
+     * Gueter que devuelve el nombre del personaje.
+     *
+     * @return nombre
+     */
     public String getNombre(){
         return nombre;
     }
 
+    /**
+     * Gueter que devuelve los puntos de vida del personaje.
+     *
+     * @return pv
+     */
     public int getpv(){
         return pv;
     }
 
+    /**
+     * Gueter que devuelve los puntos de ataque del personaje.
+     *
+     * @return atq
+     */
     public int getAtq(){
         return atq;
     }
 
+    /**
+     * Gueter que devuelve los puntos de defensa (armadura).
+     *
+     * @return arm
+     */
     public int getdef(){
         return arm;
     }
 
+    /**
+     * Gueter que devuelve el nivel del personaje.
+     *
+     * @return nivel
+     */
     public int getNivel(){
         return nivel;
     }
 
+    /**
+     * Seter encargado de establecer restricciones para el nombre.
+     * Restricciones: no puede estar vacío, ni ser "GM" ni "2".
+     *
+     * @param n nombre del personaje
+     */
     public void setNombre(String n){
         if( n.equals("") || n.equals("GM") || n.equals("2") ){
             System.err.println("Error. El nombre no es correcto");
         }else nombre = n;
     }
 
+    /**
+     * Seter encargado de establecer los puntos de vida.
+     * Restricción: no puede ser menor que 0.
+     *
+     * @param puntosVida puntos de vida
+     */
     public void setpv(int puntosVida){
         if (puntosVida < 0){
             System.err.println("Error. Pv no puede ser menor de cero");
@@ -101,6 +175,12 @@ public class Personaje {
 
     }
 
+    /**
+     * Seter encargado de establecer los puntos de ataque.
+     * Restricción: no puede ser menor que 0.
+     *
+     * @param puntosAtq puntos de ataque
+     */
     public void setatq(int puntosAtq){
         if(puntosAtq < 0){
             System.err.println("Error. EL atque no puede ser menor que cero");
@@ -111,16 +191,27 @@ public class Personaje {
 
     }
 
+    /**
+     * Seter encargado de establecer los puntos de armadura.
+     * Restricción: no puede ser menor que 0.
+     *
+     * @param puntosArm puntos de armadura
+     */
     public void setArm(int puntosArm){
         if(puntosArm < 0){
             System.err.println("Error. La defensa no puede ser menor que 0");
         }else{
             arm = puntosArm;
-
         }
 
     }
 
+    /**
+     * Seter encargado de establecer el nivel del personaje.
+     * Restricciones: nivel entre 1 y 100.
+     *
+     * @param puntosNivel nivel del personaje
+     */
     public void setnivel(int puntosNivel){
         if(puntosNivel < 1 || nivel > 100){
             System.err.println("Error. El nivel no es correcto");
@@ -130,22 +221,48 @@ public class Personaje {
         }
     }
 
+    /**
+     * Gueter que devuelve la resistencia del personaje.
+     *
+     * @return res
+     */
     public int getRes() {
         return res;
     }
 
+    /**
+     * Seter que establece la resistencia del personaje.
+     *
+     * @param res resistencia
+     */
     public void setRes(int res) {
         this.res = res;
     }
 
+    /**
+     * Gueter que devuelve la velocidad del personaje.
+     *
+     * @return vel
+     */
     public int getVel() {
         return vel;
     }
 
+    /**
+     * Seter que establece la velocidad del personaje.
+     *
+     * @param vel velocidad
+     */
     public void setVel(int vel) {
         this.vel = vel;
     }
 
+    /**
+     * Metodo beberPocion que incrementa los puntos de vida
+     * del personaje si estos son inferiores a 30.
+     *
+     * @param pocion cantidad de vida recuperada
+     */
     public void beberPocion(int pocion){
         if(pv < 30){
             pv += pocion;
@@ -153,7 +270,13 @@ public class Personaje {
         }else System.err.println("No puedes beber la pocion ya que tu vida es mayor de 30 puntos");
     }
 
-
+    /**
+     * Metodo inspirar que incrementa el ataque o la defensa
+     * dependiendo del tipo indicado.
+     *
+     * @param cantidad cantidad a aumentar
+     * @param tipo tipo de atributo (atq o def)
+     */
     public void inspirar(int cantidad, String tipo) {
         if (tipo.equals("atq")) {
             atq += cantidad;
@@ -166,6 +289,82 @@ public class Personaje {
         }
     }
 
+    /**
+     * Metodo realizarTurno que permite al personaje elegir su acción durante su turno.
+     * El jugador puede decidir entre:
+     * 1. Atacar: realiza un ataque físico con la fuerza del personaje.
+     * 2. Defender: aumenta temporalmente la armadura (ARM) y resistencia (RES) un 20%.
+     * 3. Pasar Turno: no realiza ninguna acción.
+     * Si se ingresa una opción no válida, se pasa automáticamente el turno.
+     *
+     * @return Ataque objeto que representa la acción realizada por el personaje, con el tipo de daño y cantidad correspondiente.
+     */
+    public Ataque realizarTurno() {
+        Scanner scan = new Scanner(System.in);
+        Ataque ataque;
+
+        System.out.println("1. Atacar");
+        System.out.println("2. Defender");
+        System.out.println("3. Pasar Turno");
+        System.out.print("Elige tu accion: ");
+
+        String opcion = scan.nextLine();
+
+        switch (opcion) {
+            case "1":
+                ataque = new Ataque(getAtq(), "Fis");
+                System.out.println("Se ataca con fuerza");
+                break;
+
+            case "2":
+                setArm(getdef() + (int)(getdef() * 0.2));
+                setRes(getRes() + (int)(getRes() * 0.2));
+                ataque = new Ataque(0, "Est");
+                System.out.println("Se defiende aumentando ARM y RES un 20% este turno.");
+                break;
+
+            case "3":
+                ataque = new Ataque(0, "Est");
+                System.out.println("Se pasa el turno.");
+                break;
+
+            default:
+                ataque = new Ataque(0, "Est");
+                System.out.println("Opción no válida se pasa el turno.");
+                break;
+        }
+
+        return ataque;
+    }
+
+    /**
+     * Metodo defender que calcula la defensa del personaje ante un ataque recibido.
+     * Dependiendo del tipo de daño recibido:
+     * "Mag": se aplica la defensa restando la armadura al daño mágico.
+     * "Fis": se aplica la resistencia restando la resistencia al daño físico.
+     * Si el tipo de daño no es reconocido, se muestra un mensaje de error.
+     *
+     * @param atacar objeto de tipo Ataque que representa el ataque recibido.
+     */
+    public void defender(Ataque atacar){
+        int danoTotal;
+        switch (atacar.getTipoDano()){
+            case "Mag":
+                danoTotal = atacar.getCantDano() - this.arm;
+                break;
+            case "Fis":
+                danoTotal = atacar.getCantDano() - this.res;
+                break;
+            default:
+                System.out.println("El tipo de daño no es correcto");
+
+        }
+    }
+
+    /**
+     * Metodo subirnivel que incrementa el nivel del personaje
+     * y puede aumentar distintos atributos de forma aleatoria.
+     */
     public void subirnivel(){
         Random r = new Random();
         nivel++;
@@ -192,6 +391,10 @@ public class Personaje {
 
     }
 
+    /**
+     * Metodo estaMuerto que determina si el personaje
+     * está vivo o muerto en función de sus puntos de vida.
+     */
     public void estaMuerto() {
         if(pv < 0){
             System.out.println("Analizando tu vida se determina que estas muerto");
@@ -199,12 +402,18 @@ public class Personaje {
 
     }
 
+    /**
+     * Metodo caerTrampa que determina si el personaje
+     * cae o no en una trampa y aplica sus efectos.
+     *
+     * @param t objeto de tipo trampa
+     * @see trampa
+     */
     public void caerTrampa(trampa t){
 
         boolean AC = t.activarTrampa();
         String Tipo = t.getCategoria();
         int Quita = t.getPerjuicio();
-
 
         if (AC){
             switch (Tipo){
@@ -225,18 +434,25 @@ public class Personaje {
 
         }else System.out.println("Felicidades, "+nombre+" !escapaste indemne¡");
 
-
     }
 
-
-
-
+    /**
+     * Metodo clon que devuelve una copia del personaje actual.
+     *
+     * @return personaje clonado
+     */
     public Personaje clon(){
         Personaje clone = new Personaje(this.nombre,this.pv, this.atq, this.arm,this.nivel);
         return clone;
     }
 
-
+    /**
+     * Metodo equals que compara dos personajes
+     * comprobando todos sus atributos.
+     *
+     * @param otro personaje a comparar
+     * @return true si son iguales, false en caso contrario
+     */
     public boolean equals(Personaje otro) {
         boolean comparacion = true;
 
@@ -262,7 +478,12 @@ public class Personaje {
         return comparacion;
     }
 
-
+    /**
+     * Metodo toString que devuelve una descripción
+     * completa del personaje.
+     *
+     * @return descripción del personaje
+     */
     public String toString(){
         String DevolucionDescribcion = "Tu personaje llamado: "+nombre+" con una cantidad de pundos de vida de: "+pv+" , Puntos de defensa: "+ arm +" , Puntos de ataque: "+atq+" y puntos de nivel: "+nivel;
         return DevolucionDescribcion;
