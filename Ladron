@@ -2,30 +2,64 @@ package Characters;
 //CHECK
 import java.util.Random;
 
+/**
+ * Clase Ladron.
+ * Representa un personaje de tipo Ladron que hereda de la clase Personaje.
+ * El ladrón tiene la habilidad de robar, que puede afectar sus atributos,
+ * y su progresión al subir nivel depende de probabilidades aleatorias.
+ */
 public class Ladron extends Personaje{
 
+    /**
+     * crea el atributo boolean robar.
+     */
     private boolean robar;
 
+    /**
+     * Constructor por defecto.
+     * Inicializa los atributos del ladrón usando la superclase
+     * y establece la habilidad robar en false.
+     */
     public Ladron() {
         super();
         this.robar = false;
     }
 
+    /**
+     * Constructor por parámetros.
+     * Crea un ladrón indicando sus atributos principales y la habilidad de robar.
+     *
+     * @param nombre nombre del ladrón
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param nivel nivel del personaje
+     * @param robar indica si puede robar
+     */
     public Ladron(String nombre, int pv, int atq, int arm, int nivel, boolean robar) {
         super(nombre, pv, atq, arm, nivel);
         this.robar = robar;
     }
 
+    /**
+     * Metodo getter de la habilidad robar.
+     * Devuelve si el ladrón puede robar actualmente.
+     *
+     * @return true si puede robar, false en caso contrario
+     */
     public boolean isRobar() {
         return robar;
     }
 
+    /**
+     * Metodo subirnivel.
+     * Incrementa el nivel del ladrón y mejora sus atributos
+     * según probabilidades aleatorias definidas para cada estadística.
+     */
     @Override
     public void subirnivel() {
         Random r = new Random();
-        if (r.nextDouble() <= 0.85) {
-            setnivel(getNivel() + 1);
-        }
+        setnivel(getNivel() + 1);
 
         if (r.nextDouble() <= 0.40) {
             setpv(getpv() + 1);
@@ -48,10 +82,22 @@ public class Ladron extends Personaje{
         }
     }
 
+    /**
+     * Metodo Robar.
+     * Modifica el ataque del ladrón utilizando su velocidad
+     * para simular la acción de robar.
+     */
     public void Robar(){
         setatq(getVel());
     }
 
+    /**
+     * Metodo toString.
+     * Devuelve una cadena con la información del ladrón,
+     * incluyendo si puede robar.
+     *
+     * @return cadena con los datos del ladrón
+     */
     @Override
     public String toString() {
         return super.toString() + "ladron robar: "+robar;
