@@ -1,0 +1,79 @@
+package Combat;
+
+/**
+ * Clase Ataque que representa una acción ofensiva o de estado
+ * que un personaje puede realizar durante el combate.
+ * Contiene la cantidad de daño que se produce y el tipo de daño.
+ * Tipos de daño posibles:
+ * Mag, Fis, Est
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public class Ataque {
+
+    /** atributo de tipo int que almacena la cantidad de daño del ataque */
+    private int cantDano;
+
+    /** atributo de tipo String que almacena el tipo de daño */
+    private String tipoDano;
+
+    /**
+     * Constructor por defecto que inicializa el ataque
+     * sin daño y sin tipo definido.
+     */
+    public Ataque(){
+        cantDano = 0;
+        tipoDano = "";
+    }
+
+    /**
+     * Constructor por parámetros que crea un ataque
+     * indicando su cantidad de daño y su tipo.
+     *
+     * @param cantDano cantidad de daño del ataque
+     * @param tipoDano tipo de daño (Mag, Fis o Est)
+     */
+    public Ataque(int cantDano, String tipoDano){
+        this.cantDano = cantDano;
+        this.tipoDano = tipoDano;
+    }
+
+    /**
+     * Getter que devuelve la cantidad de daño del ataque.
+     *
+     * @return cantDano
+     */
+    public int getCantDano() {
+        return cantDano;
+    }
+
+    /**
+     * Setter que establece la cantidad de daño del ataque.
+     *
+     * @param cantDano cantidad de daño
+     */
+    public void setCantDano(int cantDano) {
+        this.cantDano = cantDano;
+    }
+
+    /**
+     * Getter que devuelve el tipo de daño del ataque.
+     *
+     * @return tipoDano
+     */
+    public String getTipoDano() {
+        return tipoDano;
+    }
+
+    /**
+     * Setter que establece el tipo de daño del ataque.
+     * Solo permite los valores Mag, Fis o Est.
+     *
+     * @param tipoDano tipo de daño
+     */
+    public void setTipoDano(String tipoDano) {
+        if(this.tipoDano.equals("Mag") || this.tipoDano.equals("Fis") || this.tipoDano.equals("Est")){
+            this.tipoDano = tipoDano;
+        }else System.out.println("Porfavor elija un tipo de ataque valido");
+    }
+}
