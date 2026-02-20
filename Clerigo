@@ -1,0 +1,115 @@
+package Characters;
+
+import Combat.Ataque;
+
+import java.util.Random;
+import java.util.Scanner;
+
+/**
+ * Clase Clérigo que hereda de Creyente.
+ * Representa un personaje centrado en la sanación y los milagros sagrados.
+ * Puede subir de nivel y ejecutar plegarias que afectan sus atributos y los de aliados o enemigos.
+ * Hereda de la clase abstracta Creyente.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public class Clerigo extends Creyente {
+
+    /**
+     * Constructor por defecto.
+     * Inicializa todos los atributos del Clérigo a los valores por defecto de la superclase.
+     */
+    public Clerigo(){
+        super();
+    }
+
+    /**
+     * Constructor por parámetros.
+     * Inicializa todos los atributos del Clérigo, incluyendo puntos de fe.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res puntos de resistencia mágica
+     * @param vel velocidad
+     * @param fe puntos de fe
+     */
+    public Clerigo(int pv, int atq, int arm, int res, int vel, int fe) {
+        super(pv, atq, arm, res, vel, fe);
+    }
+
+    /**
+     * Metodo subirnivel que incrementa el nivel del Clérigo
+     * y puede aumentar distintos atributos de forma aleatoria.
+     */
+    public void subirnivel() {
+        Random r = new Random();
+        setnivel(getNivel() + 1);
+
+        if (r.nextDouble() <= 0.20) {
+            setpv((getpv() + 1));
+        }
+
+        if (r.nextDouble() <= 0.10) {
+            setatq(getAtq() + 1);
+        }
+
+        if (r.nextDouble() <= 0.20) {
+            setArm(getdef() + 1);
+        }
+
+        if (r.nextDouble() <= 0.80){
+            setFe(getFe() * 2);
+        }
+
+        if (r.nextDouble() <= 0.80){
+            setRes(getRes() * 2);
+        }
+
+    }
+
+    /**
+     * Metodo plegaria que permite al Clérigo ejecutar un milagro.
+     * Dependiendo de la elección del usuario, modifica distintos atributos
+     * basándose en los puntos de fe del personaje.
+     */
+    public void plegaria() {
+        Ataque lanzar;
+        Scanner s = new Scanner(System.in);
+        System.out.println("Por favor elija el milagro que desea hacer: ");
+        System.out.println("Sanación (1): sana el 70% de sus puntos de fe como vida a un aliado.");
+        System.out.println("Rezo sagrado (2): sana el 35% de sus puntos de fe como vida a todo el\n" +
+                "grupo.");
+        System.out.println("Cólera divina (3): causa el 55% de sus puntos de fe como daño sagrado\n" +
+                "a un objetivo.");
+        System.out.println("Eleccion: ");
+        int eleccion = s.nextInt();
+
+        switch (eleccion){
+            case 1:
+                lanzar = new Ataque((int) (getpv() / 0.70),"Fis" );
+                break;
+            case 2:
+                lanzar = new Ataque((int) (getpv() / 0.35),"Fis" );
+                break;
+            case 3:
+                lanzar = new Ataque((int) (getdef() * 0.55),"Mag" );
+                break;
+            default:
+                System.out.println("No ha elejido un tipo de milagro valido");
+        }
+    }
+
+    /**
+     * Metodo toString que devuelve una descripción completa del Clérigo,
+     * incluyendo sus puntos de fe.
+     *
+     * @return descripción del Clérigo
+     */
+    @Override
+    public String toString() {
+        return super.toString()+" El Clérigo cuenta con unos puntos de FE de: "+this.getFe();
+    }
+
+}
