@@ -1,24 +1,149 @@
 package Characters;
-//CHECK
+//CHECK 20/02/26
+import Combat.Ataque;
+import java.util.Scanner;
 import java.util.Random;
 
+/**
+ * Clase Mago.
+ * Representa un personaje de tipo Mago que hereda de la clase Personaje.
+ * El mago tiene puntos de magia (mag) que utiliza para lanzar conjuros
+ * y mejorar sus atributos. Su progresión al subir nivel depende de probabilidades
+ * aleatorias.
+ */
 public class Mago extends Personaje{
+
+    /**
+     * Puntos de magia del mago.
+     */
     private int mag;
 
+    /**
+     * Constructor por defecto.
+     * Inicializa los atributos del mago usando la superclase y establece
+     * la magia en 10 puntos.
+     */
     public Mago(){
         super();
         mag = 10;
     }
 
+    /**
+     * Constructor por parámetros.
+     * Crea un mago indicando sus atributos principales y puntos de magia.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res resistencia mágica
+     * @param vel velocidad
+     * @param mag puntos de magia
+     */
     public Mago(int pv, int atq, int arm, int res, int vel, int mag) {
         super(pv, atq, arm, res, vel);
         this.mag = mag;
     }
 
+    /**
+     * Metodo getter de la magia.
+     * Devuelve los puntos de magia actuales del mago.
+     *
+     * @return mag puntos de magia
+     */
     public int getMag() {
         return mag;
     }
 
+    /**
+     * Metodo realizarTurno del mago que permite al jugador elegir su acción durante su turno.
+     * Opciones disponibles:
+     * 1. Atacar: realiza un ataque físico con la fuerza del personaje.
+     * 2. Acción Especial: permite lanzar uno de los cuatro conjuros del mago.
+     *    - 1. Lanzar bola de fuego: inflige un 70% del valor de magia como daño mágico.
+     *    - 2. Escudo arcano: aumenta temporalmente la defensa (ARM) y resistencia (RES) según puntos de defensa y resistencia del mago.
+     *    - 3. Céfiro: inflige un 30% del valor de magia como daño a los enemigos.
+     *    - 4. Presteza mental: incrementa temporalmente la velocidad del mago.
+     * 3. Defender: aumenta ARM y RES un 20% durante este turno.
+     * 4. Pasar Turno: no realiza ninguna acción.
+     * Si se ingresa una opción no válida en el menú principal o en los conjuros, se pasa el turno o se solicita un conjuro válido.
+     *
+     * @return Ataque objeto que representa la acción realizada por el mago, con el tipo de daño y cantidad correspondiente.
+     */
+    public Ataque realizarTurno() {
+        Scanner scan = new Scanner(System.in);
+        Ataque ataque;
+
+        System.out.println("1. Atacar");
+        System.out.println("2. Accion Especial");
+        System.out.println("3. Defender");
+        System.out.println("4. Pasar Turno");
+        System.out.print("Elige tu accion: ");
+
+        String opcion = scan.nextLine();
+
+        switch (opcion) {
+            case "1":
+                ataque = new Ataque(getAtq(), "Fis");
+                System.out.println("Se ataca con fuerza");
+                break;
+
+            case "2":
+                System.out.println("Elige un conjuro:");
+                System.out.println("1. Lanzar bola de fuego");
+                System.out.println("2. Escudo arcano");
+                System.out.println("3. Céfiro");
+                System.out.println("4. Presteza mental");
+
+                String conjuro = scan.nextLine();
+
+                switch(conjuro){
+                    case "1":
+                        ataque = new Ataque((int) (getMag() * 0.70),"Mag" );
+                        System.out.println("Lanzar bola de fuego");
+                        break;
+                    case "2":
+                        ataque = new Ataque((int) (getdef() / 0.50), "Mag");
+                        ataque = new Ataque((int) (getRes() / 0.50), "Mag");
+                        System.out.println("Escudo arcano");
+                        break;
+                    case "3":
+                        ataque = new Ataque((int) (getMag() * 0.30),"Mag" );
+                        System.out.println("Céfiro");
+                        break;
+                    case "4":
+                        ataque = new Ataque((int) (getVel() * 2), "Mag");
+                        System.out.println("Presteza mental");
+                        break;
+                    default:
+                        System.out.println("selecciona un conjuro valido");
+                }
+
+            case "3":
+                setArm(getdef() + (int)(getdef() * 0.2));
+                setRes(getRes() + (int)(getRes() * 0.2));
+                ataque = new Ataque(0, "Est");
+                System.out.println("Se defiende aumentando ARM y RES un 20% este turno.");
+                break;
+
+            case "4":
+                ataque = new Ataque(0, "Est");
+                System.out.println("Se pasa el turno.");
+                break;
+
+            default:
+                ataque = new Ataque(0, "Est");
+                System.out.println("Opción no válida se pasa el turno.");
+                break;
+        }
+
+        return ataque;
+    }
+
+    /**
+     * Metodo subirnivel.
+     * Incrementa el nivel del mago y aumenta distintos atributos
+     * en función de probabilidades aleatorias.
+     */
     @Override
     public void subirnivel() {
         Random r = new Random();
@@ -44,47 +169,53 @@ public class Mago extends Personaje{
             setRes(getRes() + 1);
         }
 
-        if (r.nextDouble() <= 0.65) {
-            setVel(getVel() + 1);
-        }
     }
 
+    /**
+     * Metodo toString.
+     * Devuelve una cadena con la informacion del mago,
+     * incluyendo sus puntos de magia.
+     *
+     * @return cadena con los datos del mago
+     */
     @Override
     public String toString() {
         return super.toString() + "Magia de Mago: "+mag;
     }
 
+    /**
+     * Metodo lanzarConjuro.
+     * Permite al mago ejecutar distintos conjuros que afectan
+     * sus atributos o causan daño según la elección indicada.
+     *
+     * @param Eleccion número que indica el conjuro a lanzar (1-4)
+     */
     public void lanzarConjuro(int Eleccion){
-        //No esta implementado el metodo combate por lo tanto no tengo donde implementar las mejoras de atributos y los daños
-        //por lo tanto se los añado a los atq, arm, res,
+        Ataque lanzar;
         switch (Eleccion){
             case 1:
                 System.out.println("lanza una bola de fuego incandescente que causa un\n" +
                         "70% de sus puntos de magia como daño a un enemigo.");
-                setatq(getMag() * 7/10);
+                lanzar = new Ataque((int) (getMag() * 0.70),"Mag" );
                 break;
 
             case 2:
                 System.out.println("Escudo arcano (2): se protege a sí mismo o a un aliado, aumentando su\n" +
                         "estadística de armadura y resistencia mágica el 50% de los puntos de\n" +
                         "magia del mago.");
-                setArm(getMag() * 5/10);
-                setRes(getMag() * 5/10);
+                lanzar = new Ataque((int) (getdef() / 0.50), "Mag");
+                lanzar = new Ataque((int) (getRes() / 0.50), "Mag");
+
                 break;
             case 3:
                 System.out.println("un fuerte viento causa un 30% de sus puntos de magia como\n" +
                         "daño a todos los enemigos presentes.");
-                setatq(getMag() * 3/10);
+                lanzar = new Ataque((int) (getMag() * 0.30),"Mag" );
                 break;
             case 4:
                 System.out.println("agiliza las reacciones propias o de un aliado,\n" +
                         "aumentando su velocidad un 100% de los puntos de magia del mago.");
-                setVel(getMag());
+                lanzar = new Ataque((int) (getVel() * 2), "Mag");
         }
-
-        //To String
-
-
-
     }
 }
