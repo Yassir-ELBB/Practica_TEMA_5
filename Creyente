@@ -1,22 +1,72 @@
 package Characters;
 
-public class Creyente extends Personaje{
+/**
+ * Clase abstracta Creyente.
+ * Representa un personaje con atributo de fe y la capacidad de realizar plegarias.
+ * Hereda de la clase Personaje.
+ * La clase es abstracta porque define un metodo abstracto plegaria()
+ * que debe ser implementado por sus subclases.
+ *
+ * @author YassirElBadriBenjelloun
+ * @version 1.0
+ */
+public abstract class Creyente extends Personaje{
+
+    /**
+     * Atributo fe del personaje, que indica su nivel de creencia o poder espiritual.
+     */
     private int fe;
 
+    /**
+     * Constructor por defecto.
+     * Inicializa todos los atributos de la superclase y establece fe a 0.
+     */
     public Creyente(){
         super();
         this.fe = 0;
     }
 
+    /**
+     * Constructor por parámetros.
+     * Inicializa todos los atributos del personaje, incluyendo la fe.
+     *
+     * @param pv puntos de vida
+     * @param atq puntos de ataque
+     * @param arm puntos de armadura
+     * @param res puntos de resistencia mágica
+     * @param vel velocidad del personaje
+     * @param fe nivel de fe del personaje
+     */
     public Creyente(int pv, int atq, int arm, int res, int vel, int fe) {
         super(pv, atq, arm, res, vel);
         this.fe = fe;
     }
 
+    /**
+     * Gueter que devuelve el nivel de fe del personaje.
+     *
+     * @return fe
+     */
     public int getFe() {
         return fe;
     }
 
-    
+    /**
+     * Seter que establece el nivel de fe del personaje.
+     *
+     * @param fe nivel de fe a asignar
+     */
+    public void setFe(int fe) {
+        this.fe = fe;
+    }
+
+    /**
+     * Metodo abstracto plegaria.
+     * Debe ser implementado por las subclases.
+     * Permite que el creyente ejecute un milagro
+     * en función de su fe.
+     */
+    public abstract void plegaria();
 
 }
+
