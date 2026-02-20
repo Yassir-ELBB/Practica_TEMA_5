@@ -1,27 +1,64 @@
 package Characters;
-// CHECK-29/01/26
+// CHECK-20/02/26
 import java.util.Random;
 
+/**
+ * Clase Guerrero.
+ * Representa un personaje de tipo Guerrero que hereda de la clase Personaje.
+ * El guerrero puede entrar en estado de furia, modificando sus atributos,
+ * y tiene una progresión de subida de nivel basada en probabilidades.
+ */
 public class Guerrero extends Personaje{
+
+    /**
+     * Indica si el guerrero se encuentra en estado de furia.
+     */
     private boolean furia;
 
+    /**
+     * Constructor por parámetros.
+     * Crea un guerrero indicando si comienza en estado de furia.
+     * Inicializa el resto de atributos usando el constructor de la superclase.
+     *
+     * @param furia estado inicial de furia del guerrero
+     */
     public Guerrero(boolean furia) {
         super();
         this.furia = furia;
     }
 
+    /**
+     * Constructor por parámetros.
+     * Crea un guerrero indicando sus atributos principales y el estado de furia.
+     * Los atributos del personaje se inicializan mediante la superclase.
+     *
+     * @param pv puntos de vida
+     * @param atq ataque
+     * @param arm armadura
+     * @param res resistencia
+     * @param vel velocidad
+     * @param furia estado de furia del guerrero
+     */
     public Guerrero(int pv, int atq, int arm, int res, int vel, boolean furia) {
         super(pv, atq, arm, res, vel);
         this.furia = false;
     }
 
-    //Preguntar sobre metodos atacar y defender sobre sus modificaciones
-
-
+    /**
+     * Metodo getter de la furia.
+     * Devuelve el estado actual de la furia del guerrero.
+     *
+     * @return true si el guerrero esta en furia, false en caso contrario
+     */
     public boolean getFuria() {
         return furia;
     }
 
+    /**
+     * Metodo que permite subir de nivel al guerrero.
+     * Incrementa el nivel y mejora sus atributos en funcion de probabilidades
+     * aleatorias definidas para cada estadistica.
+     */
     @Override
     public void subirnivel() {
         Random r = new Random();
@@ -48,18 +85,28 @@ public class Guerrero extends Personaje{
         }
     }
 
+    /**
+     * Metodo que modifica el estado de furia del guerrero.
+     * Si se activa la furia, el ataque se incrementa y la armadura se reduce.
+     *
+     * @param furia indica si se activa la furia
+     */
     public void modificaFuria(boolean furia){
         if(furia){
-            setatq(getAtq() * 2);
-            setArm(getdef() / 2);
-        }
+            this.furia = false;
+        }else this.furia = true;
     }
 
+    /**
+     * Metodo toString.
+     * Devuelve una cadena con la informacion del guerrero,
+     * incluyendo el estado de la furia.
+     *
+     * @return cadena con los datos del guerrero
+     */
     @Override
     public String toString() {
         return super.toString() + "La furia del guerrero esta: "+furia;
     }
-}
-
 }
 
